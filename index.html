@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elector Workload Manager</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">मतदाता कार्यभार और फॉर्म प्रबंधन</p>
+        <h1>Elector Workload &amp; Forms Management System</h1>
+      </div>
+      <nav class="nav-links">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#forms">Forms</a>
+        <a href="#blog">Blog</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <span class="badge">Live Operations</span>
+          <h2>Track voter tasks, forms, and response workload from one place.</h2>
+          <p>
+            This operations dashboard helps teams coordinate elector outreach,
+            form intake, verification queues, and reporting across every active shift.
+          </p>
+          <div class="actions">
+            <a href="#dashboard" class="btn">View Dashboard</a>
+            <a href="#forms" class="btn secondary">Open Form Queue</a>
+          </div>
+        </div>
+
+        <aside class="panel stat-card">
+          <div>
+            <strong>1,284</strong>
+            <span>Active elector records</span>
+          </div>
+          <div>
+            <strong>48</strong>
+            <span>Pending form submissions</span>
+          </div>
+          <div>
+            <strong>92%</strong>
+            <span>Daily task completion</span>
+          </div>
+        </aside>
+      </section>
+
+      <section id="dashboard" class="grid dashboard-grid">
+        <article class="panel">
+          <h3>Workload Overview</h3>
+          <div id="workload-bars" class="bars"></div>
+        </article>
+
+        <article class="panel">
+          <h3>Form Status</h3>
+          <div id="status-grid" class="mini-stats"></div>
+        </article>
+
+        <article class="panel">
+          <h3>Team Notes</h3>
+          <ul>
+            <li>Morning shift completed</li>
+            <li>3 priority forms flagged</li>
+            <li>2 new blog updates pending</li>
+          </ul>
+        </article>
+      </section>
+
+      <section id="forms" class="content-grid">
+        <article class="panel">
+          <h3>Form Queue</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Form ID</th>
+                  <th>Zone</th>
+                  <th>Status</th>
+                  <th>Priority</th>
+                </tr>
+              </thead>
+              <tbody id="form-table-body"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h3>Coverage Snapshot</h3>
+          <div id="coverage-bars" class="bars"></div>
+        </article>
+      </section>
+
+      <section id="blog" class="features">
+        <article class="panel">
+          <h3>Core Features</h3>
+          <p>
+            Designed for voter workload tracking, form coordination, shift planning,
+            response triage, and administrative dashboard visibility.
+          </p>
+        </article>
+
+        <article class="panel">
+          <h3>Operations Blog</h3>
+          <div id="blog-list" class="blog-list"></div>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

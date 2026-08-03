@@ -1,0 +1,29 @@
+{
+  "name": "elector-workload-manager",
+  "version": "1.0.0",
+  "description": "मतदाता कार्यभार और फॉर्म प्रबंधन प्रणाली | Elector Workload and Forms Management System",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "deploy": "netlify deploy --prod"
+  },
+  "keywords": [
+    "elector",
+    "voter",
+    "workload",
+    "management",
+    "forms",
+    "blog",
+    "dashboard"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/elector-manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/elector-manager/issues"
+  },
+  "homepage": "https://yoursite.netlify.app"
+}
