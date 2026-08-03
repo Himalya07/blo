@@ -2,9 +2,12 @@
   "name": "elector-workload-manager",
   "version": "1.0.0",
   "description": "मतदाता कार्यभार और फॉर्म प्रबंधन प्रणाली | Elector Workload and Forms Management System",
-  "main": "index.html",
+  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "python -m http.server 8000",
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "frontend": "python -m http.server 8080",
     "deploy": "netlify deploy --prod"
   },
   "keywords": [
@@ -16,14 +19,19 @@
     "blog",
     "dashboard"
   ],
-  "author": "Your Name",
+  "author": "Himalya07",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/elector-manager.git"
+    "url": "https://github.com/Himalya07/blo.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/elector-manager/issues"
+    "url": "https://github.com/Himalya07/blo/issues"
   },
-  "homepage": "https://yoursite.netlify.app"
+  "homepage": "https://github.com/Himalya07/blo",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "lowdb": "^7.0.1"
+  }
 }
