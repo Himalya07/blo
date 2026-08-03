@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Portable Node.js (downloaded locally, don't commit)
+/node/
+/node.zip
+/node-installer.msi
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local

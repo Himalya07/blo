@@ -1,34 +1,6 @@
-const workloadData = [
-  { label: 'Outreach', value: 82 },
-  { label: 'Verification', value: 66 },
-  { label: 'Form Review', value: 74 },
-  { label: 'Response Follow-up', value: 54 }
-];
+const API = 'http://localhost:3001/api';
 
-const coverageData = [
-  { label: 'North Zone', value: 91 },
-  { label: 'Central Zone', value: 78 },
-  { label: 'South Zone', value: 63 },
-  { label: 'Rural Units', value: 71 }
-];
-
-const formRows = [
-  { id: 'EW-104', zone: 'North', status: 'In Review', priority: 'High' },
-  { id: 'EW-217', zone: 'Central', status: 'Approved', priority: 'Medium' },
-  { id: 'EW-309', zone: 'South', status: 'Pending', priority: 'High' },
-  { id: 'EW-410', zone: 'Rural', status: 'Needs Update', priority: 'Low' }
-];
-
-const blogPosts = [
-  {
-    title: 'Shift-level form triage now tracked by priority',
-    text: 'Teams are moving faster on high-risk elector form queues with clear escalation rules.'
-  },
-  {
-    title: 'Coverage adoption improved across rural coordination centers',
-    text: 'Operational visibility has increased after linking weekly follow-up tasks to zone dashboards.'
-  }
-];
+// ── Render helpers ────────────────────────────────────────────────────────────
 
 function renderBars(targetId, data) {
   const container = document.getElementById(targetId);
@@ -51,16 +23,9 @@ function renderBars(targetId, data) {
     .join('');
 }
 
-function renderMiniStats() {
+function renderMiniStats(stats) {
   const container = document.getElementById('status-grid');
   if (!container) return;
-
-  const stats = [
-    { title: 'Approved', value: '186' },
-    { title: 'In Review', value: '29' },
-    { title: 'Returned', value: '11' },
-    { title: 'Escalated', value: '07' }
-  ];
 
   container.innerHTML = stats
     .map(
@@ -74,11 +39,11 @@ function renderMiniStats() {
     .join('');
 }
 
-function renderTable() {
+function renderTable(forms) {
   const body = document.getElementById('form-table-body');
   if (!body) return;
 
-  body.innerHTML = formRows
+  body.innerHTML = forms
     .map(
       (row) => `
         <tr>
@@ -92,11 +57,11 @@ function renderTable() {
     .join('');
 }
 
-function renderBlog() {
+function renderBlog(posts) {
   const container = document.getElementById('blog-list');
   if (!container) return;
 
-  container.innerHTML = blogPosts
+  container.innerHTML = posts
     .map(
       (post) => `
         <article class="blog-card">
@@ -108,10 +73,38 @@ function renderBlog() {
     .join('');
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  renderBars('workload-bars', workloadData);
-  renderBars('coverage-bars', coverageData);
-  renderMiniStats();
-  renderTable();
-  renderBlog();
-});
+// ── Data fetching ─────────────────────────────────────────────────────────────
+
+async function fetchAll() {
+  try {
+    const [workload, coverage, forms, blog, stats] = await Promise.all([
+      fetch(`${API}/workload`).then((r) => r.json()),
+      fetch(`${API}/coverage`).then((r) => r.json()),
+      fetch(`${API}/forms`).then((r) => r.json()),
+      fetch(`${API}/blog`).then((r) => r.json()),
+      fetch(`${API}/stats`).then((r) => r.json())
+    ]);
+
+    renderBars('workload-bars', workload);
+    renderBars('coverage-bars', coverage);
+    renderMiniStats(stats);
+    renderTable(forms);
+    renderBlog(blog);
+  } catch (err) {
+    console.error('Failed to load data from API:', err);
+    showApiError();
+  }
+}
+
+function showApiError() {
+  const banner = document.createElement('div');
+  banner.style.cssText =
+    'position:fixed;top:0;left:0;right:0;background:#c0392b;color:#fff;text-align:center;padding:10px 16px;font-size:14px;z-index:9999;';
+  banner.textContent =
+    '⚠ Cannot reach the API server. Make sure it is running at http://localhost:3001';
+  document.body.prepend(banner);
+}
+
+// ── Boot ──────────────────────────────────────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded', fetchAll);

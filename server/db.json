@@ -1,0 +1,36 @@
+{
+  "workload": [
+    { "label": "Outreach", "value": 82 },
+    { "label": "Verification", "value": 66 },
+    { "label": "Form Review", "value": 74 },
+    { "label": "Response Follow-up", "value": 54 }
+  ],
+  "coverage": [
+    { "label": "North Zone", "value": 91 },
+    { "label": "Central Zone", "value": 78 },
+    { "label": "South Zone", "value": 63 },
+    { "label": "Rural Units", "value": 71 }
+  ],
+  "forms": [
+    { "id": "EW-104", "zone": "North", "status": "In Review", "priority": "High" },
+    { "id": "EW-217", "zone": "Central", "status": "Approved", "priority": "Medium" },
+    { "id": "EW-309", "zone": "South", "status": "Pending", "priority": "High" },
+    { "id": "EW-410", "zone": "Rural", "status": "Needs Update", "priority": "Low" }
+  ],
+  "blog": [
+    {
+      "title": "Shift-level form triage now tracked by priority",
+      "text": "Teams are moving faster on high-risk elector form queues with clear escalation rules."
+    },
+    {
+      "title": "Coverage adoption improved across rural coordination centers",
+      "text": "Operational visibility has increased after linking weekly follow-up tasks to zone dashboards."
+    }
+  ],
+  "stats": [
+    { "title": "Approved", "value": "186" },
+    { "title": "In Review", "value": "29" },
+    { "title": "Returned", "value": "11" },
+    { "title": "Escalated", "value": "07" }
+  ]
+}
