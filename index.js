@@ -1,10 +1,14 @@
 import express from 'express';
 import cors from 'cors';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 import workloadRouter from './routes/workload.js';
 import coverageRouter from './routes/coverage.js';
 import formsRouter from './routes/forms.js';
 import blogRouter from './routes/blog.js';
 import statsRouter from './routes/stats.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -12,6 +16,9 @@ const PORT = process.env.PORT || 3001;
 // ── Middleware ────────────────────────────────────────────────────────────────
 app.use(cors());
 app.use(express.json());
+
+// ── Serve frontend static files ───────────────────────────────────────────────
+app.use(express.static(__dirname));
 
 // ── Health check ──────────────────────────────────────────────────────────────
 app.get('/api', (req, res) => {
@@ -45,9 +52,12 @@ app.use('/api/forms', formsRouter);
 app.use('/api/blog', blogRouter);
 app.use('/api/stats', statsRouter);
 
-// ── 404 handler ───────────────────────────────────────────────────────────────
-app.use((req, res) => {
-  res.status(404).json({ error: `Route '${req.path}' not found` });
+// ── Catch-all: serve index.html for non-API routes ──────────────────────────
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ error: `Route '${req.path}' not found` });
+  }
+  res.sendFile(join(__dirname, 'index.html'));
 });
 
 // ── Error handler ─────────────────────────────────────────────────────────────
@@ -58,7 +68,8 @@ app.use((err, req, res, _next) => {
 
 // ── Start ─────────────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
-  console.log(`\n🗳️  Elector Workload Manager API`);
-  console.log(`   Running at: http://localhost:${PORT}/api`);
+  console.log(`\n🗳️  Elector Workload Manager`);
+  console.log(`   Website : http://localhost:${PORT}`);
+  console.log(`   API     : http://localhost:${PORT}/api`);
   console.log(`   Press Ctrl+C to stop\n`);
 });
